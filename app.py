@@ -3,6 +3,7 @@ import tkinter as tk
 import os
 import glob
 from tkinter import filedialog as fd
+import shutil
 
 LARGE_FONT= ("Verdana", 12)
 NORM_FONT = ("Helvetica", 10)
@@ -13,7 +14,7 @@ def popup_msg(message):
     def leave():
         popup.destroy()
 
-    popup.wm_title("!")
+    popup.wm_title("Error")
     label = tk.Label(popup, text = message, font = NORM_FONT)
     label.pack(side = "top", fill = "x", pady = 10)
     B1 = tk.Button(popup, text = "Ok", command = popup.destroy)
@@ -25,9 +26,14 @@ def add_csv():
     file = fd.askopenfile()
     if file: 
         if file.name.endswith('.csv'):
-            print(file.name)
+            current_directory = os.getcwd()
+            input_directory = os.path.join(current_directory, r'input_csv')
+            if not os.path.exists(input_directory):
+                os.makedirs(input_directory)
+            shutil.copy(file.name, input_directory)
+            #print(file.name)
         else:
-            popup_msg('Choose a file with csv extenstion!')
+            popup_msg('Please choose a file with csv extenstion!')
     #print('hello')
 
 def clear():
