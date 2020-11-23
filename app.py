@@ -37,11 +37,11 @@ def add_csv():
     #print('hello')
 
 def clear():
-    if not os.path.exists('csv_storage') or  not os.listdir('csv_storage'):
+    if not os.path.exists('input_csv') or  not os.listdir('input_csv'):
         popup_msg('No csv files to process...')
     else:
         # delete all csvs from csv_storage directory
-        filelist = glob.glob(os.path.join('csv_storage', "*.csv"))
+        filelist = glob.glob(os.path.join('input_csv', "*.csv"))
         for f in filelist:
             os.remove(f)
         
