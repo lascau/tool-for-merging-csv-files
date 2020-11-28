@@ -90,8 +90,11 @@ def merge():
         merged_data.to_csv('output_csv/output.csv')
         os.startfile(os.getcwd() + '/output_csv')
 
-def add_row():
-    print('hello')
+def open_input_directory():
+    os.startfile(os.getcwd() + '/input_csv')
+
+def open_output_directory():
+    os.startfile(os.getcwd() + '/output_csv')
 
 def draw_input_files():
     for widget in frame.winfo_children():
@@ -127,30 +130,36 @@ root.geometry('750x500+120+120')
 
 frame = tk.Frame(root)
 
-add_button = tk.Button(root,
-                       text = 'Add csv',
-                       command = add_csv)
-add_button.grid(row=1, column=0)
 
-clear_button = tk.Button(root,
-                         text = 'Clear',
-                         command = clear)
-clear_button.grid(row=2, column=0)
 
-merge_button = tk.Button(root,
-                         text = 'Merge',
-                         command = merge,
-                         height = 5,
-                         width = 30)
+photo_merge = PhotoImage(file=os.getcwd() + '/merging.png')
+merge_button = tk.Button(root, image = photo_merge, command = merge)
 
 x_total = root.winfo_screenwidth()
 y_total = root.winfo_screenheight()
 
-merge_button.place(x = x_total / 2 - 100 , y = y_total / 2 + 350)
+merge_button.place(x = x_total / 2 - 100 , y = y_total / 2 + 300)
 
 w = Label(root, text ='Your input directory:', font = "50")
 w.config(font=("Courier", 30))
 w.place(x = 250, y = 300)
+
+photo = PhotoImage(file=os.getcwd() + '/browse_input.png')
+browse_button = tk.Button(root, image = photo, command=open_input_directory)
+browse_button.place(x = 500, y = 10)
+
+photo3 = PhotoImage(file=os.getcwd() + '/add_csv_icon.png')
+browse_button = tk.Button(root, image = photo3, command=add_csv)
+browse_button.place(x = 600, y = 10)
+
+photo4 = PhotoImage(file=os.getcwd() + '/recycle bin.png')
+clear_button = tk.Button(root, image = photo4, command = clear)
+clear_button.place(x = 700, y = 10)
+
+
+photo2 = PhotoImage(file=os.getcwd() + '/browse_output.png')
+browse_button = tk.Button(root, image = photo2, command=open_output_directory)
+browse_button.place(x = 815, y = 10)
 
 draw_input_files()
 
