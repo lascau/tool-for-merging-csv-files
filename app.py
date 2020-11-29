@@ -119,7 +119,7 @@ def draw_input_files():
 root = Tk()
 root.title('Csv merger')
 root.iconbitmap(r"icon.ico")
-root['bg'] = '#6BE873'
+root['bg'] = '#c7c074'
 '''
 photo = PhotoImage(file = "icon_background.png")
 w = Label(root, image=photo)
