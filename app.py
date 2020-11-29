@@ -6,6 +6,7 @@ from tkinter import filedialog as fd
 import shutil
 import pandas as pd
 from os import walk
+from tkinter import messagebox
 
 LARGE_FONT= ("Verdana", 12)
 NORM_FONT = ("Helvetica", 10)
@@ -48,20 +49,22 @@ def add_csv():
         else:
             popup_msg('Please choose a file with csv extenstion!')
     #print('hello')
-    draw_input_files()
+    draw_input_files()    
 
 def clear():
     if not os.path.exists('input_csv') or  not os.listdir('input_csv'):
-        popup_msg('No csv files to process...')
+        popup_msg('No csv files to delete!')
     else:
-        # delete all csvs from input_csv directory
-        filelist = glob.glob(os.path.join('input_csv', "*.csv"))
-        for f in filelist:
-            os.remove(f)
-    for label in label_csvs:
-        #print(label)
-        label.place_forget()
-    draw_input_files()
+        MsgBox = tk.messagebox.askquestion ('Delete multiple items','Are you sure you want to delete all files from your input directory?',icon = 'warning')
+        if MsgBox == 'yes':
+            # delete all csvs from input_csv directory
+            filelist = glob.glob(os.path.join('input_csv', "*.csv"))
+            for f in filelist:
+                os.remove(f)
+            for label in label_csvs:
+                #print(label)
+                label.place_forget()
+            draw_input_files()
 
 def merge():
     if not os.path.exists('input_csv') or  not os.listdir('input_csv'):
@@ -97,13 +100,19 @@ def open_output_directory():
     os.startfile(os.getcwd() + '/output_csv')
 
 def draw_input_files():
+    # sort csv decreasing by date
+    input_files = list(filter(os.path.isfile, glob.glob(os.path.join('input_csv', "*.csv"))))
+    input_files.sort(key=lambda x: os.path.getmtime(x))
+
+    files = []
+    for input_file in input_files:
+       files.append(input_file[input_file.find('\\') + 1:])
+    
     for widget in frame.winfo_children():
         if isinstance(widget, tk.Label):
             widget.destroy()
     new_x, new_y = 250, 300
-    files = []
-    for (dirpath, dirnames, filenames) in walk(os.getcwd() + '/input_csv'):
-        files.extend(filenames)
+
     for file in files:
         new_y += 50
         label = Label(root, text = '  -' + file, font = "50")
