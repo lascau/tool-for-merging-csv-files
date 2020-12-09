@@ -8,10 +8,6 @@ import pandas as pd
 from os import walk
 from tkinter import messagebox
 
-LARGE_FONT= ("Verdana", 12)
-NORM_FONT = ("Helvetica", 10)
-SMALL_FONT = ("Helvetica", 8)
-
 label_csvs = []
 
 def popup_msg(message):
@@ -28,8 +24,8 @@ def popup_msg(message):
     y = (sh - h) / 2 - 50
     popup.geometry('%dx%d+%d+%d' % (w, h, x, y))  
     popup.wm_title("Error")
-    popup.iconbitmap(r"error_icon.ico")
-    label = tk.Label(popup, text = message, font = NORM_FONT)
+    popup.iconbitmap(r"/assests/error_icon.ico")
+    label = tk.Label(popup, text = message, font = ("Helvetica", 10))
     label.pack(side = "top", fill = "x", pady = 10)
     B1 = tk.Button(popup, text = "Ok", command = popup.destroy)
     B1.pack()
@@ -127,7 +123,7 @@ def draw_input_files():
 
 root = Tk()
 root.title('Csv merger')
-root.iconbitmap(r"icon.ico")
+root.iconbitmap(os.getcwd() + r"/assets/icon.ico")
 root['bg'] = '#c7c074'
 '''
 photo = PhotoImage(file = "icon_background.png")
@@ -141,7 +137,7 @@ frame = tk.Frame(root)
 
 
 
-photo_merge = PhotoImage(file=os.getcwd() + '/merging.png')
+photo_merge = PhotoImage(file=os.getcwd() + '/assets/merging.png')
 merge_button = tk.Button(root, image = photo_merge, command = merge)
 
 x_total = root.winfo_screenwidth()
@@ -153,28 +149,23 @@ w = Label(root, text ='Your input directory:', font = "50")
 w.config(font=("Courier", 30))
 w.place(x = 250, y = 300)
 
-photo = PhotoImage(file=os.getcwd() + '/browse_input.png')
+photo = PhotoImage(file=os.getcwd() + '/assets/browse_input.png')
 browse_button = tk.Button(root, image = photo, command=open_input_directory)
 browse_button.place(x = 500, y = 10)
 
-photo3 = PhotoImage(file=os.getcwd() + '/add_csv_icon.png')
+photo3 = PhotoImage(file=os.getcwd() + '/assets/add_csv_icon.png')
 browse_button = tk.Button(root, image = photo3, command=add_csv)
 browse_button.place(x = 600, y = 10)
 
-photo4 = PhotoImage(file=os.getcwd() + '/recycle bin.png')
+photo4 = PhotoImage(file=os.getcwd() + '/assets/recycle bin.png')
 clear_button = tk.Button(root, image = photo4, command = clear)
 clear_button.place(x = 700, y = 10)
 
 
-photo2 = PhotoImage(file=os.getcwd() + '/browse_output.png')
+photo2 = PhotoImage(file=os.getcwd() + '/assets/browse_output.png')
 browse_button = tk.Button(root, image = photo2, command=open_output_directory)
 browse_button.place(x = 815, y = 10)
 
 draw_input_files()
 
-'''
-var2 = tk.IntVar()
-c2 = tk.Checkbutton(root, text='C++',variable=var2, onvalue=1, offvalue=0, command = add_row)
-c2.pack()
-'''
 root.mainloop()
